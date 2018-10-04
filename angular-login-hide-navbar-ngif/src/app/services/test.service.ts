@@ -1,7 +1,19 @@
+import {
+    Http, RequestOptions, Headers,HttpModule, Response, ResponseContentType,
+    ConnectionBackend, RequestOptionsArgs, Request}
+     from '@angular/http';
 import { Injectable, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../auth/user';
+
+
+
+import {HttpHeaders} from '@angular/common/http';
+
+
+
+//import 'rxjs/add/operator/catch';
+
 
 interface recordsData {
     records: Array<any>;
@@ -14,16 +26,28 @@ export class TestService {
     loginCredentail;
     private subscribeService = new Subject<any>();
     $subscribeService = this.subscribeService.asObservable();
-    constructor(private http: Http){
+
+    // get Header Credentials
+    public apiOptions: RequestOptions;
+    
+    public localStorageToken: string;
+    public localStorageAPIVersion: string;
+    //public apiOptions: RequestOptions;
+    public body: any;
+    public url: string;
+    public callType: string;
+
+    constructor(private http: Http, defaultOptions: RequestOptions){
 
     }
 
     ngOnInit() {
        //this.getUserDetails('', ''); 
     }
-    
-    getUserDetails(user_name, password){
-        this.http.post('http://localhost/angular-login-hide-navbar/angular-login-hide-navbar-ngif/sugarAPI/checkLoginCredentials.php', {
+    private sugarTokenApi = 'http://localhost/angular-login-hide-navbar/angular-login-hide-navbar-ngif/sugarAPI/checkLoginCredentials.php';
+    private sugarProductsApi = 'http://localhost/angular-login-hide-navbar/angular-login-hide-navbar-ngif/sugarAPI/SugarApiHeaderCredentials.php';
+    getSugarApiAuth(user_name, password){
+        this.http.post(this.sugarTokenApi, {
             user_name:'admin2',
             password:'@dmin111'
             
@@ -47,15 +71,30 @@ export class TestService {
 		);
     }
 
-    // checkLoginCredentials(){
-    //     this.http.get('http://localhost/angular-login-hide-navbar/angular-login-hide-navbar-ngif/sugarAPI/checkLoginCredentials.php', {})
-    //     .subscribe(
-	// 		(response) => {
-	// 			//this.data = JSON.parse(response['_body']);
-	// 		    //console.log("credentials", this.data);
-	// 		},
-	// 		err => console.log(err), // error
-	// 		() => console.log('getUserStatus Complete for login') // complete
-	// 	);
-    // }
+    
+
+    apiOptionsDecide(options) {
+        this.localStorageToken = 'bearer ' + localStorage.getItem('token');
+        this.localStorageAPIVersion = localStorage.getItem('api_version');
+        if (options === 'json') {
+            const contentTypeJsonHeaders = new Headers();
+            contentTypeJsonHeaders.append('Content-Type', 'application/json');
+            contentTypeJsonHeaders.append('Authorization', this.localStorageToken);
+            return new RequestOptions({ headers: contentTypeJsonHeaders });
+        }
+
+    }
+    //get Sugar Products
+    getSugarProducts(){
+        this.http.get(this.sugarProductsApi, {})
+        .subscribe(
+			(response) => {
+                debugger;
+				this.data = JSON.parse(response['_body']);
+			    console.log("header Credential 2nd call", this.data);
+			},
+			err => console.log(err), // error
+			() => console.log('getUserStatus Complete for login') // complete
+		);
+    }
 }

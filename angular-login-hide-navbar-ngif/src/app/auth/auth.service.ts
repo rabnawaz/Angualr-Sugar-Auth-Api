@@ -13,18 +13,24 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
 
+  
   constructor(private router: Router, private testService: TestService) {
     
   }
 
+  
   login(user: User) {
     if (user.userName !== '' && user.password !== '' ) {
-      this.testService.getUserDetails(user.userName, user.password);
 
+      this.testService.getSugarApiAuth(user.userName, user.password);
+      debugger;
+     
+      
       this.loggedIn.next(true);
       this.router.navigate(['/']);
     }
   }
+  
 
   logout() {
     this.loggedIn.next(false);
