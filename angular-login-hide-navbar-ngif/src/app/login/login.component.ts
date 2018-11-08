@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from './../auth/auth.service';
 
+import { User } from '../auth/user';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -25,7 +27,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
       
     });
-
+    console.log('this.form', this.form);
   }
 
   isFieldInvalid(field: string) {
@@ -34,7 +36,11 @@ export class LoginComponent implements OnInit {
       (this.form.get(field).untouched && this.formSubmitAttempt)
     );
   }
-
+  isCredentialInvilid(user: User){
+    if(user.userName !== 'admin2' && user.password !=='@dmin111'){
+      console.log('invilid user or pasword');
+    }
+  }
   onSubmit() {
     if (this.form.valid) {
       this.authService.login(this.form.value);

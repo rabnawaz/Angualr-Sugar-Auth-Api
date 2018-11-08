@@ -6,6 +6,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../auth/user';
 
+
 import { HttpClient } from '@angular/common/http';
 import { map } from "rxjs/operators";
 import { HttpHeaders } from '@angular/common/http';
@@ -17,12 +18,13 @@ interface recordsData {
 @Injectable()
 export class TestService implements OnInit{
     items : Array<any>;
-    data: recordsData;
+    data: recordsData; 
     loginCredentail;
     private subscribeService = new Subject<any>();
     $subscribeService = this.subscribeService.asObservable();
-
     // get Header Credentials
+    private productSubscriber = new Subject<any>();
+    $productSubscriber = this.productSubscriber.asObservable();
     public apiOptions: RequestOptions;
     
     public localStorageToken: string;
@@ -32,61 +34,63 @@ export class TestService implements OnInit{
     public url: string;
     public callType: string;
 
+    
+    ngOnInit(){
+
+    }
+    
+
     constructor(private http: Http){
 
     }
-
-    ngOnInit() {
-       //this.getUserDetails('', ''); 
-    }
+    
     private sugarTokenApi = 'http://localhost/Angualr-Sugar-Auth-Api/angular-login-hide-navbar-ngif/sugarAPI/checkLoginCredentials.php';
     private sugarProductsApi = 'http://localhost/Angualr-Sugar-Auth-Api/angular-login-hide-navbar-ngif/sugarAPI/SugarBodyCredentials.php';
     
-    getSugarApiAuth(user_name, password){
-        // const contentTypeFormHeaders = new Headers({ 
-        //     'Content-Type': 'application/json'});
-        //     contentTypeFormHeaders.append('Authorization', localStorage.getItem('access_token'));
-        this.http.post(this.sugarTokenApi, {
-            user_name:'admin2',
-            password:'@dmin111',
+    getSugarApiAuth(userName: string, password: string){
+        //Login user/password post request
+
+        let userParam_obj = new FormData();
+        userParam_obj.append('username' , userName);
+        userParam_obj.append('password' , password);
+
+        this.http.post(this.sugarTokenApi,userParam_obj,{
             
-        })//, new RequestOptions({headers: contentTypeFormHeaders}))
+        })
         .subscribe(
 			(response) => {
-                //console.log(contentTypeFormHeaders);
-                debugger;
+                console.log(userParam_obj, 'userParam_obj');
                 let responsedata = JSON.parse(response['_body']);
                 console.log('response for header', responsedata);
-
-                // //debugger;
-                // console.log("My data", responsedata);
-                // console.log('user/password' , user_name, password);
 
                 localStorage.setItem('access_token', responsedata.access_token);
                 localStorage.setItem('expires_in', responsedata.expires_in);
                 localStorage.setItem('refresh_token', responsedata.refresh_token);
-                localStorage.setItem('user_name', user_name);
-                localStorage.setItem('refresh_token', password);
-			},
+            },
+            
 			err => console.log(err), // error
 			() => console.log('getUserStatus Complete') // complete
         );
-    }
 
+         
+    }
+    private invilideCredentional(userName: string, password: string){
+        userName = userName;
+        password = password;
+    }
     //GET SUGAR PRODUCT SERVICE;
     getSugarProduct(){
-        //const contentTypeFormHeaders = new Headers({ 'Content-Type': 'application/json', 'OAuth-Token': localStorage.getItem('access_token')});
-        // contentTypeFormHeaders.append();
-        //console.log('get auth ', localStorage.getItem('access_token'));
-        this.http.get(this.sugarProductsApi)
+        let postData = localStorage.getItem('access_token');
+        let formdata = new FormData();
+        formdata.append('access_token', postData);
+        this.http.post(this.sugarProductsApi,formdata,{
+
+        })
         .subscribe(
 			(response) => {
-                debugger;
-                console.log('response for data', response);
                 this.data = JSON.parse(response['_body']);
-                // this.items = this.data.records;
-                // callback(this.items);
-                console.log('record data', this.data);
+                this.items = this.data.records;
+                this.productSubscriber.next(this.items);
             }
         //.catch(this.handleError)
         );

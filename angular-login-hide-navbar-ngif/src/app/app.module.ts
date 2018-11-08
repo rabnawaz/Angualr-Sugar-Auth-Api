@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppMaterialModule } from './app-material/app-material.module';
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
@@ -18,8 +19,8 @@ import { LoginComponent } from './login/login.component';
 import { HttpModule } from '@angular/http';
 import { TestService } from './services/test.service';
 
-//import { HttpService } from './services/http.service';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { AccountsComponent } from './accounts/accounts.component';
 
 
 
@@ -31,7 +32,8 @@ import { TestService } from './services/test.service';
     HomeComponent,
     ContactsComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    AccountsComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import { TestService } from './services/test.service';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AppMaterialModule,
-    HttpModule,
+    HttpModule
+    
   ],
   providers: [AuthService, AuthGuard, TestService],
   bootstrap: [AppComponent]

@@ -11,13 +11,20 @@ if(empty($obj['user_name']) || empty($obj['password'])){
 	return;
 }
 */
-//print_r($_REQUEST);
+
+$user_name = $_POST['username'];
+
+$login_password = $_POST['password'];
+
+//print_r($_REQUEST['username']);
+//print_r($login_password);
+//die('user request');
 
 $instance_url = 'https://staging.rtlabs.co.uk:44367/rest/v11_1';
-$username = 'admin2';
-//$username = $obj['user_name'];
-//$password = $obj['password'];
-$password = '@dmin111';
+// $username = 'admin2';
+// $password = '@dmin111';
+$username = $user_name;
+$password = $login_password;
 
 //Login - POST /oauth2/token
 $auth_url = $instance_url . "/oauth2/token";

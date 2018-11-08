@@ -1,14 +1,22 @@
-<mat-toolbar color="primary" *ngIf="isLoggedIn$ | async as isLoggedIn">
-  <span>
-    <img src="assets/img/angular_whiteTransparent.svg" class="angular-logo">
-    Angular NavBar + Login Example #01
-  </span>
-  <span class="fill-remaining-space"></span>
-  <button mat-button routerLink="/contacts">Contacts</button>
-  <button mat-button>Menu Option 02</button>
-  <!--button mat-button routerLink="login" *ngIf="!isLoggedIn; else notLoggedIn">Login</button>
-  <ng-template #notLoggedIn>
-    <button mat-button (click)="onLogout()">Logout</button>
-  </ng-template -->
-  <button mat-button (click)="onLogout()" *ngIf="isLoggedIn">Logout</button>
-</mat-toolbar>
+<nav class="navbar main-navbar fixed-top navbar-light bg-white navbar-expand-lg" *ngIf="isLoggedIn$ | async as isLoggedIn">
+    <a class="navbar-brand" href="#"><img src="assets/img/company_logo.png" alt="logo"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/home">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/contacts">Contacts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/accounts">Accounts</a>
+            </li>
+        </ul>
+        <span class="form-inline my-2 my-lg-0">
+            <button class="btn btn-primary" (click)="onLogout()" *ngIf="isLoggedIn">Log Out</button>
+        </span>
+    </div>
+</nav>

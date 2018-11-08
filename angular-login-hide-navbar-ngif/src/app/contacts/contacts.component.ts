@@ -5,35 +5,28 @@ import {
 import { Injectable } from '@angular/core';
 import {TestService} from '../services/test.service';
 
+
+
 @Injectable()
 @Component({
   selector: 'contacts-component',
   templateUrl: 'contacts.component.html',
-  styles: []
+  styleUrls: ['contacts.component.scss']
 })
 
 
 export class ContactsComponent implements OnInit{
   items:any;
   data;
-  
-  constructor(private testservice: TestService) {}
-
   ngOnInit(){
-    //self = this;
-    this.testservice.getSugarProduct()
+
   }
-  
-    // this.testservice.getSugarProduct().subscribe(
-    //   data =>{
-    //     console.log(data)
-    //   }
-    // );
-    
-    //debugger;
-    // this.testservice.getSugarProduct(items => {
-    //   this.items = items;
-      
-    // });
-  
+  constructor(private testservice: TestService) {
+    this.testservice.getSugarProduct();
+    this.testservice.$productSubscriber.subscribe(data => {
+      this.items = data;
+    });
+  }
+
+
 }
