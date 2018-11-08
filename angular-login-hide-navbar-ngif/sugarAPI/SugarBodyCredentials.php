@@ -1,0 +1,44 @@
+<?php
+$instance_url = 'https://staging.rtlabs.co.uk:44367/rest/v11_1';
+/* Authentication End*/
+
+session_start();
+
+$AuthTokenObj = $_SESSION["oauth-token"];
+
+$oauth2_token_response_obj = json_decode($AuthTokenObj);
+$oauth_token = $oauth2_token_response_obj->access_token;
+
+$filter_url = $instance_url . "/Accounts/filter";
+
+//$filter_arguments = array(
+    //);
+
+
+$filter_request = curl_init($filter_url);
+curl_setopt($filter_request, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+curl_setopt($filter_request, CURLOPT_HEADER, false);
+curl_setopt($filter_request, CURLOPT_SSL_VERIFYPEER, 0);
+curl_setopt($filter_request, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($filter_request, CURLOPT_FOLLOWLOCATION, 0);
+curl_setopt($filter_request, CURLOPT_HTTPHEADER, array(
+    "Content-Type: application/json",
+    "oauth-token: {$oauth_token}"
+    
+));
+
+
+//echo '<pre>'; print_r($AuthToken->access_token); echo '</pre>';
+//convert arguments to json
+//$json_arguments = json_encode($filter_arguments);
+curl_setopt($filter_request, CURLOPT_POSTFIELDS, $json_arguments);
+
+//execute request
+$filter_response = curl_exec($filter_request);
+$filter_request;
+//decode json
+//$filter_response_obj = json_decode($filter_response);
+
+echo $filter_response;
+
+// session_destroy();
