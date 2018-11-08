@@ -1,7 +1,7 @@
 <?php
 
 
-/* Authentication Start*/
+/* Authentication Start
 
 $json = file_get_contents('php://input');
 $obj = json_decode($json, true);
@@ -10,11 +10,14 @@ if(empty($obj['user_name']) || empty($obj['password'])){
 	echo '';
 	return;
 }
+*/
+//print_r($_REQUEST);
+
 $instance_url = 'https://staging.rtlabs.co.uk:44367/rest/v11_1';
-//$username = 'admin2';
-$username = $obj['user_name'];
-$password = $obj['password'];
-//$password = '@dmin111';
+$username = 'admin2';
+//$username = $obj['user_name'];
+//$password = $obj['password'];
+$password = '@dmin111';
 
 //Login - POST /oauth2/token
 $auth_url = $instance_url . "/oauth2/token";
@@ -38,6 +41,8 @@ curl_setopt($auth_request, CURLOPT_HEADER, false);
 curl_setopt($auth_request, CURLOPT_SSL_VERIFYPEER, 0);
 curl_setopt($auth_request, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($auth_request, CURLOPT_FOLLOWLOCATION, 0);
+curl_setopt($auth_request, CURLOPT_SSL_VERIFYHOST, 0);
+curl_setopt($auth_request, CURLOPT_SSL_VERIFYPEER, 0);
 curl_setopt($auth_request, CURLOPT_HTTPHEADER, array(
     "Content-Type: application/json"
 ));
@@ -46,6 +51,21 @@ curl_setopt($auth_request, CURLOPT_HTTPHEADER, array(
 $json_arguments = json_encode($oauth2_token_arguments);
 curl_setopt($auth_request, CURLOPT_POSTFIELDS, $json_arguments);
 
+session_start();
+
+// session_destroy();
+
 //execute request
 $oauth2_token_response = curl_exec($auth_request);
-print_r($oauth2_token_response);
+
+// SET SESSION
+$_SESSION["oauth-token"] = $oauth2_token_response;
+
+
+
+
+
+//print "<pre>";
+//print_r ($oauth2_token_response);
+echo $oauth2_token_response;
+//$oauth2_token_response);

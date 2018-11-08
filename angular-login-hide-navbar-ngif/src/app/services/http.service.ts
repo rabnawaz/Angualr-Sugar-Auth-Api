@@ -21,9 +21,9 @@ export class TestService {
     ngOnInit() {
        //this.getUserDetails('', ''); 
     }
-    
+    private sugarTokenApii = 'http://localhost/Angualr-Sugar-Auth-Api/angular-login-hide-navbar-ngif/sugarAPI/checkLoginCredentials.php';
     getUserDetails(user_name, password){
-        this.http.post('http://localhost/angular-login-hide-navbar/angular-login-hide-navbar-ngif/sugarAPI/checkLoginCredentials.php', {
+        this.http.post(this.sugarTokenApii, {
             user_name:'admin2',
             password:'@dmin111'
             

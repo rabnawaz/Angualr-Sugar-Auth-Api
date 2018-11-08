@@ -1,26 +1,21 @@
 import {
-    Http, RequestOptions, Headers,HttpModule, Response, ResponseContentType,
+    Http,RequestOptions,HttpModule,Headers, Response, ResponseContentType, 
     ConnectionBackend, RequestOptionsArgs, Request}
      from '@angular/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../auth/user';
 
-
-
-import {HttpHeaders} from '@angular/common/http';
-
-
-
-//import 'rxjs/add/operator/catch';
-
+import { HttpClient } from '@angular/common/http';
+import { map } from "rxjs/operators";
+import { HttpHeaders } from '@angular/common/http';
 
 interface recordsData {
     records: Array<any>;
 }
 
 @Injectable()
-export class TestService {
+export class TestService implements OnInit{
     items : Array<any>;
     data: recordsData;
     loginCredentail;
@@ -37,28 +32,35 @@ export class TestService {
     public url: string;
     public callType: string;
 
-    constructor(private http: Http, defaultOptions: RequestOptions){
+    constructor(private http: Http){
 
     }
 
     ngOnInit() {
        //this.getUserDetails('', ''); 
     }
-    private sugarTokenApi = 'http://localhost/angular-login-hide-navbar/angular-login-hide-navbar-ngif/sugarAPI/checkLoginCredentials.php';
-    private sugarProductsApi = 'http://localhost/angular-login-hide-navbar/angular-login-hide-navbar-ngif/sugarAPI/SugarApiHeaderCredentials.php';
+    private sugarTokenApi = 'http://localhost/Angualr-Sugar-Auth-Api/angular-login-hide-navbar-ngif/sugarAPI/checkLoginCredentials.php';
+    private sugarProductsApi = 'http://localhost/Angualr-Sugar-Auth-Api/angular-login-hide-navbar-ngif/sugarAPI/SugarBodyCredentials.php';
+    
     getSugarApiAuth(user_name, password){
+        // const contentTypeFormHeaders = new Headers({ 
+        //     'Content-Type': 'application/json'});
+        //     contentTypeFormHeaders.append('Authorization', localStorage.getItem('access_token'));
         this.http.post(this.sugarTokenApi, {
             user_name:'admin2',
-            password:'@dmin111'
+            password:'@dmin111',
             
-        })
+        })//, new RequestOptions({headers: contentTypeFormHeaders}))
         .subscribe(
 			(response) => {
-				
-                const responsedata = JSON.parse(response['_body']);
-                //debugger;
-                console.log("My data", responsedata);
-                console.log('user/password' , user_name, password);
+                //console.log(contentTypeFormHeaders);
+                debugger;
+                let responsedata = JSON.parse(response['_body']);
+                console.log('response for header', responsedata);
+
+                // //debugger;
+                // console.log("My data", responsedata);
+                // console.log('user/password' , user_name, password);
 
                 localStorage.setItem('access_token', responsedata.access_token);
                 localStorage.setItem('expires_in', responsedata.expires_in);
@@ -68,33 +70,32 @@ export class TestService {
 			},
 			err => console.log(err), // error
 			() => console.log('getUserStatus Complete') // complete
-		);
+        );
     }
 
-    
-
-    apiOptionsDecide(options) {
-        this.localStorageToken = 'bearer ' + localStorage.getItem('token');
-        this.localStorageAPIVersion = localStorage.getItem('api_version');
-        if (options === 'json') {
-            const contentTypeJsonHeaders = new Headers();
-            contentTypeJsonHeaders.append('Content-Type', 'application/json');
-            contentTypeJsonHeaders.append('Authorization', this.localStorageToken);
-            return new RequestOptions({ headers: contentTypeJsonHeaders });
-        }
-
-    }
-    //get Sugar Products
-    getSugarProducts(){
-        this.http.get(this.sugarProductsApi, {})
+    //GET SUGAR PRODUCT SERVICE;
+    getSugarProduct(){
+        //const contentTypeFormHeaders = new Headers({ 'Content-Type': 'application/json', 'OAuth-Token': localStorage.getItem('access_token')});
+        // contentTypeFormHeaders.append();
+        //console.log('get auth ', localStorage.getItem('access_token'));
+        this.http.get(this.sugarProductsApi)
         .subscribe(
 			(response) => {
                 debugger;
-				this.data = JSON.parse(response['_body']);
-			    console.log("header Credential 2nd call", this.data);
-			},
-			err => console.log(err), // error
-			() => console.log('getUserStatus Complete for login') // complete
-		);
+                console.log('response for data', response);
+                this.data = JSON.parse(response['_body']);
+                // this.items = this.data.records;
+                // callback(this.items);
+                console.log('record data', this.data);
+            }
+        //.catch(this.handleError)
+        );
+        
+       
     }
+
+
 }
+    
+
+    

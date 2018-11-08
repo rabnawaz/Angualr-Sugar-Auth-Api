@@ -21,13 +21,17 @@ export class AuthService {
   
   login(user: User) {
     if (user.userName !== '' && user.password !== '' ) {
-
-      this.testService.getSugarApiAuth(user.userName, user.password);
-      debugger;
-     
       
+      this.testService.getSugarApiAuth(user.userName, user.password);
+      //debugger;
+    //if(localStorage.access_token){
+      //console.log('auth token is find');
       this.loggedIn.next(true);
       this.router.navigate(['/']);
+    //  }
+    //   else {
+    //   console.log('auth token was not found');
+    //   }
     }
   }
   

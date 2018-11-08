@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppMaterialModule } from './app-material/app-material.module';
@@ -17,6 +18,13 @@ import { LoginComponent } from './login/login.component';
 import { HttpModule } from '@angular/http';
 import { TestService } from './services/test.service';
 
+//import { HttpService } from './services/http.service';
+
+
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,11 +35,12 @@ import { TestService } from './services/test.service';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AppMaterialModule,
-    HttpModule
+    HttpModule,
   ],
   providers: [AuthService, AuthGuard, TestService],
   bootstrap: [AppComponent]
