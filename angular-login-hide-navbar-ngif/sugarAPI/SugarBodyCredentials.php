@@ -30,12 +30,16 @@ curl_setopt($filter_request, CURLOPT_HTTPHEADER, array(
 
 //echo '<pre>'; print_r($AuthToken->access_token); echo '</pre>';
 //convert arguments to json
+
 $json_arguments = json_encode($filter_arguments);
+//$json_arguments = json_encode($filter_arguments);
 curl_setopt($filter_request, CURLOPT_POSTFIELDS, $json_arguments);
 
 //execute request
 $filter_response = curl_exec($filter_request);
+
 //$filter_request;
+
 //decode json
 //$filter_response_obj = json_decode($filter_response);
 
