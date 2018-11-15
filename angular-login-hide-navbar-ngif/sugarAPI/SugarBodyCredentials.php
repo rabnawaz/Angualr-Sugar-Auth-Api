@@ -2,6 +2,8 @@
 
 $access_token = $_POST['access_token'];
 
+$offset_records = $_POST['next_offset'];
+
 //echo $formdataObj;
 
 $instance_url = 'https://staging.rtlabs.co.uk:44367/rest/v11_1';
@@ -11,7 +13,9 @@ $instance_url = 'https://staging.rtlabs.co.uk:44367/rest/v11_1';
 $filter_url = $instance_url . "/Contacts/filter";
 
 $filter_arguments = array(
-    );
+    "offset" => $offset_records,
+    "max_num" => 5,
+);
 
    
 

@@ -5,6 +5,8 @@ import {
 import { Injectable } from '@angular/core';
 import {TestService} from '../services/test.service';
 
+import { FilterPipe} from './filter.pipe';
+
 
 
 @Injectable()
@@ -21,12 +23,22 @@ export class ContactsComponent implements OnInit{
   ngOnInit(){
 
   }
-  constructor(private testservice: TestService) {
+  constructor(public testservice: TestService) {
     this.testservice.getSugarProduct();
     this.testservice.$productSubscriber.subscribe(data => {
       this.items = data;
     });
+
+    // show more call
+    // increaseShow(){
+    //   this.testservice.increaseShow();
+    // }
   }
+  show = 4;
+  // tags = ['a','b','c','d','e','f','g','h','i','j','a','b','c','d','e','f','g','h','i','j', 'a','b','c','d','e','f','g','h','i','j','a','b','c','d','e','f','g','h','i','j', 'a','b','c','d','e','f','g','h','i','j'];
+  // increaseShow(){
+  //   this.show += 10;
+  // }
 
 
 }

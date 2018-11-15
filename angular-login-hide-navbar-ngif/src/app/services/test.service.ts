@@ -11,7 +11,14 @@ import { HttpClient } from '@angular/common/http';
 import { map } from "rxjs/operators";
 import { HttpHeaders } from '@angular/common/http';
 
+//import {ContactsComponent} from '../contacts/contacts.component';
+
 interface recordsData {
+    records: Array<any>;
+}
+
+interface sugarProducts {
+    next_offset: any;
     records: Array<any>;
 }
 
@@ -19,6 +26,7 @@ interface recordsData {
 export class TestService implements OnInit{
     items : Array<any>;
     data: recordsData; 
+    recordsOffset: sugarProducts;
     loginCredentail;
     private subscribeService = new Subject<any>();
     $subscribeService = this.subscribeService.asObservable();
@@ -39,7 +47,6 @@ export class TestService implements OnInit{
 
     }
     
-
     constructor(private http: Http){
 
     }
@@ -88,14 +95,32 @@ export class TestService implements OnInit{
         })
         .subscribe(
 			(response) => {
+                this.recordsOffset = JSON.parse(response['_body']);
                 this.data = JSON.parse(response['_body']);
                 this.items = this.data.records;
                 this.productSubscriber.next(this.items);
+                
+                // GET next offset records
+                localStorage.setItem('next_offset', this.recordsOffset.next_offset);
+                console.log('sugar record offset: ', this.recordsOffset.next_offset);
+                console.log('sugar record items: ', this.items);
             }
         //.catch(this.handleError)
-        );
-        
-       
+        ); 
+    }
+
+    // SHOW MORE RECORD LIST
+    
+    
+    increaseShow(){
+        let offset_records:any = localStorage.getItem('next_offset');
+        let offsetRecords = offset_records;
+        let offsetData = new FormData();
+        offsetData.append('access_token', offsetRecords);
+        this.http.post(this.sugarProductsApi,offset_records,{
+            
+        })
+        //this.show += 10;
     }
 
 

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule }   from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,8 +20,10 @@ import { LoginComponent } from './login/login.component';
 import { HttpModule } from '@angular/http';
 import { TestService } from './services/test.service';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+// import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AccountsComponent } from './accounts/accounts.component';
+
+import { FilterPipe} from './contacts/filter.pipe';
 
 
 
@@ -29,6 +32,7 @@ import { AccountsComponent } from './accounts/accounts.component';
 @NgModule({
   declarations: [
     AppComponent,
+    FilterPipe ,
     HomeComponent,
     ContactsComponent,
     HeaderComponent,
@@ -37,6 +41,7 @@ import { AccountsComponent } from './accounts/accounts.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule ,
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -44,6 +49,9 @@ import { AccountsComponent } from './accounts/accounts.component';
     AppMaterialModule,
     HttpModule
     
+  ],
+  exports: [
+    FilterPipe
   ],
   providers: [AuthService, AuthGuard, TestService],
   bootstrap: [AppComponent]
