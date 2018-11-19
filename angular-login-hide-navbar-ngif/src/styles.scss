@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -659,4 +659,8 @@ footer .btn-toolbar.pull-right {
     font-weight: normal;
     font-size: 12px;
     box-shadow: none;
+}
+
+.show-more a{
+    cursor: pointer;
 }

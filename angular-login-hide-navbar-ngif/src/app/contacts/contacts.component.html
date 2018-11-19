@@ -66,14 +66,24 @@
                 <td>{{item.assigned_user_name}}</td>
                 <td>{{item.date_entered}}</td>
             </tr>
-            <tr *ngFor="let item of items | slice:0:show; let i=index">
-                <td colspan="7">{{item.name}}</td>
+            <!-- SHORE MORE LIST -->
+            <tr *ngFor="let list of itemsmore | filter: 'name' : searchString ; let index = index">
+                <td>{{index + 6}}</td>
+                <td><a href="#">{{list.name}}</a></td>
+                <td><a href="#">{{list.account_name}}</a></td>
+                <td>{{list.email1}}</td>
+                <td>{{list.phone_work}}</td>
+                <td>{{list.assigned_user_name}}</td>
+                <td>{{list.date_entered}}</td>
             </tr>
             <tr class="show-more">
-                <td colspan="7"><div (click)="testservice.increaseShow()"><a>Show More</a></div></td>
+                <td colspan="7"><span (click)="testservice.increaseShow()"><a>More contacts...</a></span></td>
             </tr>
-            </tbody>
+            </tbody> 
         </table>
+        <div>
+            
+        </div>
         </div>
         </div>
         </div>

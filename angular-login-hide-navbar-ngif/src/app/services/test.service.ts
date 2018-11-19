@@ -25,6 +25,7 @@ interface sugarProducts {
 @Injectable()
 export class TestService implements OnInit{
     items : Array<any>;
+    itemsmore : Array<any>;
     data: recordsData; 
     recordsOffset: sugarProducts;
     loginCredentail;
@@ -33,6 +34,10 @@ export class TestService implements OnInit{
     // get Header Credentials
     private productSubscriber = new Subject<any>();
     $productSubscriber = this.productSubscriber.asObservable();
+
+    private productSubscriberMore = new Subject<any>();
+    $productSubscriberMore = this.productSubscriberMore.asObservable();
+
     public apiOptions: RequestOptions;
     
     public localStorageToken: string;
@@ -102,7 +107,7 @@ export class TestService implements OnInit{
                 
                 // GET next offset records
                 localStorage.setItem('next_offset', this.recordsOffset.next_offset);
-                console.log('sugar record offset: ', this.recordsOffset.next_offset);
+                // console.log('sugar record offset: ', this.recordsOffset.next_offset);
                 console.log('sugar record items: ', this.items);
             }
         //.catch(this.handleError)
@@ -113,13 +118,26 @@ export class TestService implements OnInit{
     
     
     increaseShow(){
+        console.log('icrease shwo');
         let offset_records:any = localStorage.getItem('next_offset');
         let offsetRecords = offset_records;
         let offsetData = new FormData();
-        offsetData.append('access_token', offsetRecords);
-        this.http.post(this.sugarProductsApi,offset_records,{
+        
+        let postData = localStorage.getItem('access_token');
+        let formdata = new FormData();
+        formdata.append('access_token', postData);
+        formdata.append('next_offset', offsetRecords);
+        this.http.post(this.sugarProductsApi,formdata,{
             
         })
+        .subscribe (
+            (res)=> {
+                this.data = JSON.parse(res['_body']);
+                this.itemsmore = this.data.records;
+                this.productSubscriberMore.next(this.itemsmore);
+                console.log('new items', this.itemsmore);
+            }
+        )
         //this.show += 10;
     }
 

@@ -20,6 +20,8 @@ import { FilterPipe} from './filter.pipe';
 export class ContactsComponent implements OnInit{
   items:any;
   data;
+  itemsmore;
+  datamore;
   ngOnInit(){
 
   }
@@ -30,15 +32,11 @@ export class ContactsComponent implements OnInit{
     });
 
     // show more call
-    // increaseShow(){
-    //   this.testservice.increaseShow();
-    // }
+    
+    this.testservice.$productSubscriberMore.subscribe(data => {
+      this.itemsmore = data;
+    });
+    
   }
-  show = 4;
-  // tags = ['a','b','c','d','e','f','g','h','i','j','a','b','c','d','e','f','g','h','i','j', 'a','b','c','d','e','f','g','h','i','j','a','b','c','d','e','f','g','h','i','j', 'a','b','c','d','e','f','g','h','i','j'];
-  // increaseShow(){
-  //   this.show += 10;
-  // }
-
 
 }
