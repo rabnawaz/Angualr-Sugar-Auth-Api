@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { AccountsComponent } from './accounts/accounts.component';
+import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard] },
+  { path: 'detail/:id', component: ContactDetailComponent, canActivate: [AuthGuard] },
   { path: 'accounts', component: AccountsComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: ''}
 ];

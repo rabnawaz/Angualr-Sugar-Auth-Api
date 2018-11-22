@@ -5,6 +5,9 @@ import {
 import { Injectable } from '@angular/core';
 import {TestService} from '../services/test.service';
 
+import {ContactDetailService} from '../services/contact-detail.service';
+
+
 import { FilterPipe} from './filter.pipe';
 
 
@@ -25,7 +28,7 @@ export class ContactsComponent implements OnInit{
   ngOnInit(){
 
   }
-  constructor(public testservice: TestService) {
+  constructor(public testservice: TestService, public contactDetailService:ContactDetailService) {
     this.testservice.getSugarProduct();
     this.testservice.$productSubscriber.subscribe(data => {
       this.items = data;

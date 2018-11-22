@@ -19,11 +19,13 @@ import { LoginComponent } from './login/login.component';
 
 import { HttpModule } from '@angular/http';
 import { TestService } from './services/test.service';
+import { ContactDetailService } from './services/contact-detail.service';
 
 // import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AccountsComponent } from './accounts/accounts.component';
 
 import { FilterPipe} from './contacts/filter.pipe';
+import { ContactDetailComponent } from './contact-detail/contact-detail.component';
 
 
 
@@ -37,7 +39,8 @@ import { FilterPipe} from './contacts/filter.pipe';
     ContactsComponent,
     HeaderComponent,
     LoginComponent,
-    AccountsComponent
+    AccountsComponent,
+    ContactDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,7 @@ import { FilterPipe} from './contacts/filter.pipe';
   exports: [
     FilterPipe
   ],
-  providers: [AuthService, AuthGuard, TestService],
+  providers: [AuthService, AuthGuard, TestService, ContactDetailService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
