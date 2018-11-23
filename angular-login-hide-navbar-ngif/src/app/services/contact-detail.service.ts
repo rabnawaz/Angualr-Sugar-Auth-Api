@@ -64,7 +64,7 @@ export class ContactDetailService implements OnInit{
     
     
     //GET SUGAR PRODUCT SERVICE;
-    getContactDetail(contactId:string){
+    getContactDetail(){
         
         let postData = localStorage.getItem('access_token');
         let formdata = new FormData();
@@ -74,25 +74,14 @@ export class ContactDetailService implements OnInit{
         })
         .subscribe(
 			(response) => {
-                
                 this.data = JSON.parse(response['_body']);
                 this.items = this.data;
                 this.contactDetailSubscriber.next(this.items);
-                
-                // console.log('sugar record offset: ', this.recordsOffset.next_offset);
-
-                
                 console.log('detail items: ',  this.items);
-                console.log('contactId', contactId);
-                return contactId;
-                
-                //debugger;
+                //console.log('contactId', contactId);
             }
-        //.catch(this.handleError)
         ); 
     }
-
-
 
 }
     

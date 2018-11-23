@@ -5,7 +5,7 @@
                 <span class="index" data-fieldname="title">
                     <span sfuuid="571" class="list-headerpane">
                         <div class="ellipsis_inline" data-placement="bottom" title="Contacts" style="max-width: 679px;">
-                            Contact detail of {{items.name}}
+                            Contact detail of <span *ngIf="items">{{items.name}}</span>
                         </div>
                     </span>
                 </span>
@@ -24,7 +24,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr *ngIf="items">
                         <td>{{items.name}}</td>
                         <td>{{items.id}}</td>
                     </tr>
