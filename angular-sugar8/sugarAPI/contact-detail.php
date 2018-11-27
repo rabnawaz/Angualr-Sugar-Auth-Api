@@ -2,6 +2,7 @@
 
 $access_token = $_POST['access_token'];
 
+$contact_id = $_POST['contact_id'];
 //$offset_records = $_POST['next_offset'];
 
 
@@ -12,7 +13,7 @@ $instance_url = 'https://staging.rtlabs.co.uk:44367/rest/v11_1';
 /* Authentication End*/
 
 
-$filter_url = $instance_url . "/Contacts/b5dbf2fa-e8f3-11e8-a85b-000000000000";
+$filter_url = $instance_url . "/Contacts/{$contact_id}";
 
 $filter_arguments = array(
     "offset" => 0,

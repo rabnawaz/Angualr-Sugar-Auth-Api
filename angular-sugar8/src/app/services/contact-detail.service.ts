@@ -60,15 +60,16 @@ export class ContactDetailService implements OnInit{
 
     }
     
-    private contactDetailApi = 'http://localhost/Angualr-Sugar-Auth-Api/angular-login-hide-navbar-ngif/sugarAPI/contact-detail.php';
+    private contactDetailApi = 'http://localhost/Angualr-Sugar-Auth-Api/angular-sugar8/sugarAPI/contact-detail.php';
     
     
     //GET SUGAR PRODUCT SERVICE;
-    getContactDetail(){
-        
+    getContactDetail(contactID){
+        contactID = contactID;
         let postData = localStorage.getItem('access_token');
         let formdata = new FormData();
         formdata.append('access_token', postData);
+        formdata.append('contact_id', contactID);
         this.http.post(this.contactDetailApi,formdata,{
 
         })

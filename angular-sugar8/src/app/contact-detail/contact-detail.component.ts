@@ -14,8 +14,8 @@ export class ContactDetailComponent implements OnInit {
   }
   items:any;
   constructor(private contactDetailService: ContactDetailService) {
-      //debugger;
-      this.contactDetailService.getContactDetail();
+      // debugger;
+      // this.contactDetailService.getContactDetail();
       this.contactDetailService.$contactDetailSubscriber.subscribe(data => {
         this.items = data;
       });

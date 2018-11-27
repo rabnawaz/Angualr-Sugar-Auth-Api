@@ -39,7 +39,17 @@ export class ContactsComponent implements OnInit{
     this.testservice.$productSubscriberMore.subscribe(data => {
       this.itemsmore = data;
     });
+
+    
     
   }
+  contactDetail(contactID){
+    
+    console.log('contact detail: ', contactID);
+    //debugger;
+    
+    this.contactDetailService.getContactDetail(contactID);
+  }
+
 
 }

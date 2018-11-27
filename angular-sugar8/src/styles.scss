@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
-@import 'bootstrap/dist/css/bootstrap.min.css';
+//@import 'bootstrap/dist/css/bootstrap.min.css';
 
 body {
     margin: 0;
@@ -18,7 +18,7 @@ body {
     border-bottom: 1px solid #d3dbe1;
 }
 .signin-content {
-    max-width: 340px;
+    max-width: 340px; 
     margin: 0 auto;
 }
 .btn.btn-link {

@@ -56,8 +56,8 @@ export class TestService implements OnInit{
 
     }
     
-    private sugarTokenApi = 'http://localhost/Angualr-Sugar-Auth-Api/angular-login-hide-navbar-ngif/sugarAPI/checkLoginCredentials.php';
-    private sugarProductsApi = 'http://localhost/Angualr-Sugar-Auth-Api/angular-login-hide-navbar-ngif/sugarAPI/SugarBodyCredentials.php';
+    private sugarTokenApi = 'http://localhost/Angualr-Sugar-Auth-Api/angular-sugar8/sugarAPI/checkLoginCredentials.php';
+    private sugarProductsApi = 'http://localhost/Angualr-Sugar-Auth-Api/angular-sugar8/sugarAPI/SugarBodyCredentials.php';
     
     getSugarApiAuth(userName: string, password: string){
         //Login user/password post request
