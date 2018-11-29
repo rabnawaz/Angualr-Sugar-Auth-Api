@@ -1,0 +1,95 @@
+<div id="content" style="display: block;">
+    <div class="row-fluid">
+        <div class="main-pane span12">
+            <div class="headerpane">
+                <h1>
+                    <span class="record-cell" data-type="label" data-name="title" style="max-width: 679px;">
+                        <span class="table-cell-wrapper">
+                            <span class="index" data-fieldname="title">
+                                <span sfuuid="571" class="list-headerpane">
+                                    <div class="ellipsis_inline" data-placement="bottom" title="Contacts" style="max-width: 679px;">
+                                        Contacts
+                                    </div>
+                                </span>
+                            </span>
+                        </span>
+                    </span>
+                    <span class="record-cell" data-type="collection-count" data-name="collection-count">
+                    <span class="table-cell-wrapper">
+                    <span class="index" data-fieldname="collection-count">
+                    <span sfuuid="572" class="list-headerpane">
+                    <span class="count">(3)</span>
+                    </span>
+                    </span>
+                    </span>
+                    </span>
+                    <div class="btn-toolbar pull-right dropdown">
+                        <span sfuuid="573" class="list-headerpane">
+                        <a href="#Contacts/create" class="btn btn-primary" role="button" tabindex="0" name="create_button" track="click:create_button">Create</a>
+                        </span>
+                    </div>
+                </h1>
+            </div>   
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input [(ngModel)]="searchString" type="text" name="search" class="form-control input-lg" placeholder="Search record by firstname,lastname...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="submit" data-ember-action="3">
+                            Search
+                            <!-- <i class="glyphicon glyphicon-search"></i> -->
+                        </button>
+                    </span>
+                </div>
+            </div>
+        <div class="main-content">
+            <div class="flex-list-view">
+                <div class="flex-list-view-content">
+                    <table class="table table-striped dataTable" width="100%" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr class="flex-list-row-header">
+                <th width="100px">#</th>
+                <th>Name</th>
+                <th>Account Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>User</th>
+                <th>Date Created</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of items | filter: 'name' : searchString ; let index = index">
+                <td>{{index + 1}}</td>
+                <td><a routerLink="/detail/{{item.id}}" (click)="contactDetail(item.id)">{{item.name}}</a></td>
+                <td><a href="#">{{item.account_name}}</a></td>
+                <td>{{item.email1}}</td>
+                <td>{{item.phone_work}}</td>
+                <td>{{item.assigned_user_name}}</td>
+                <td>{{item.date_entered}}</td>
+            </tr>
+            <!-- SHORE MORE LIST -->
+            <tr *ngFor="let list of itemsmore | filter: 'name' : searchString ; let index = index">
+                <td>{{index + 6}}</td>
+                <td><a href="#">{{list.name}}</a></td>
+                <td><a href="#">{{list.account_name}}</a></td>
+                <td>{{list.email1}}</td>
+                <td>{{list.phone_work}}</td>
+                <td>{{list.assigned_user_name}}</td>
+                <td>{{list.date_entered}}</td>
+            </tr>
+            <tr class="show-more">
+                <td colspan="7"><span (click)="testservice.increaseShow()"><a>More contacts...</a></span></td>
+            </tr>
+            </tbody> 
+        </table>
+        <div>
+            
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        
+    
+    

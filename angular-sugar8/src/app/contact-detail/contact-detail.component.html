@@ -1,0 +1,36 @@
+<div class="headerpane">
+    <h1>
+        <span class="record-cell" data-type="label" data-name="title" style="max-width: 679px;">
+            <span class="table-cell-wrapper">
+                <span class="index" data-fieldname="title">
+                    <span sfuuid="571" class="list-headerpane">
+                        <div class="ellipsis_inline" data-placement="bottom" title="Contacts" style="max-width: 679px;">
+                            Contact detail of <span *ngIf="items">{{items.name}}</span>
+                        </div>
+                    </span>
+                </span>
+            </span>
+        </span>
+    </h1>
+</div> 
+<div class="main-content">
+    <div class="flex-list-view">
+        <div class="flex-list-view-content">
+            <table class="table table-striped dataTable" width="100%" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr class="flex-list-row-header">
+                    <th>Name</th>
+                    <th>Account Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="items">
+                        <td>{{items.name}}</td>
+                        <td>{{items.id}}</td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+    </div>
+</div>
+    
