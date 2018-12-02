@@ -8,7 +8,15 @@ import { LoginService } from '../services/login.service';
 
 @Injectable()
 export class AuthService {
-  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  //private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  private loggedIn = new BehaviorSubject<boolean>(this.tokenAvailable());
+
+  private tokenAvailable(): boolean {
+    this.router.navigate(['/']);
+    return !!localStorage.getItem('access_token');
+  }
+
 
   get isLoggedIn() {
     return this.loggedIn.asObservable();
@@ -25,13 +33,12 @@ export class AuthService {
       //debugger;
       this.loginService.getSugarApiAuth(user.userName, user.password);
       //debugger;
-    if(localStorage.access_token){
-      this.loggedIn.next(true);
-      this.router.navigate(['/']);
-     }
-      else {
-      console.log('auth token was not found');
+      if(typeof localStorage.getItem('access_token') != 'undefined'){
+        this.loggedIn.next(true);
+        this.router.navigate(['/home']);
       }
+     
+      
     }
   }
   
@@ -39,5 +46,6 @@ export class AuthService {
   logout() {
     this.loggedIn.next(false);
     this.router.navigate(['/login']);
+    localStorage.removeItem('access_token');
   }
 }

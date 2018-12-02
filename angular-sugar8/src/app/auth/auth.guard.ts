@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
-
+  
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.authService.isLoggedIn.pipe(
       take(1),
@@ -17,7 +17,9 @@ export class AuthGuard implements CanActivate {
           this.router.navigate(['/login']);
           return false;
         }
+        
         return true;
+       
       })
     );
   }

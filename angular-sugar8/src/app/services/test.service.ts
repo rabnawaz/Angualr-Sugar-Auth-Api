@@ -37,16 +37,6 @@ export class TestService implements OnInit{
 
     private productSubscriberMore = new Subject<any>();
     $productSubscriberMore = this.productSubscriberMore.asObservable();
-
-    public apiOptions: RequestOptions;
-    
-    public localStorageToken: string;
-    public localStorageAPIVersion: string;
-    //public apiOptions: RequestOptions;
-    public body: any;
-    public url: string;
-    public callType: string;
-
     
     ngOnInit(){
 
@@ -57,6 +47,8 @@ export class TestService implements OnInit{
     }
     
     private sugarProductsApi = 'http://localhost/Angualr-Sugar-Auth-Api/angular-sugar8/sugarAPI/SugarBodyCredentials.php';
+
+    private showMOreAPI = 'http://localhost/Angualr-Sugar-Auth-Api/angular-sugar8/sugarAPI/showMore.php';
     
     //GET SUGAR PRODUCT SERVICE;
     getSugarProduct(){
@@ -75,8 +67,6 @@ export class TestService implements OnInit{
                 
                 // GET next offset records
                 localStorage.setItem('next_offset', this.recordsOffset.next_offset);
-                // console.log('sugar record offset: ', this.recordsOffset.next_offset);
-                console.log('sugar record items: ', this.items);
             }
         //.catch(this.handleError)
         ); 
@@ -87,6 +77,9 @@ export class TestService implements OnInit{
     
     increaseShow(){
         console.log('icrease shwo');
+        let showMore:any = 10;
+        showMore += 10;
+
         let offset_records:any = localStorage.getItem('next_offset');
         let offsetRecords = offset_records;
         let offsetData = new FormData();
@@ -95,7 +88,8 @@ export class TestService implements OnInit{
         let formdata = new FormData();
         formdata.append('access_token', postData);
         formdata.append('next_offset', offsetRecords);
-        this.http.post(this.sugarProductsApi,formdata,{
+        formdata.append('show_more', showMore);
+        this.http.post(this.showMOreAPI,formdata,{
             
         })
         .subscribe (
