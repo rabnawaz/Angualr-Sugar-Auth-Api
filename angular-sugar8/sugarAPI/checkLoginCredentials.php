@@ -20,7 +20,7 @@ $login_password = $_POST['password'];
 //print_r($login_password);
 //die('user request');
 
-$instance_url = 'https://staging.rtlabs.co.uk:44367/rest/v11_1';
+$instance_url = 'https://westeros.rolustech.com:44332/rest/v10';
 // $username = 'admin2';
 // $password = '@dmin111';
 $username = $user_name;
@@ -51,7 +51,8 @@ curl_setopt($auth_request, CURLOPT_FOLLOWLOCATION, 0);
 curl_setopt($auth_request, CURLOPT_SSL_VERIFYHOST, 0);
 curl_setopt($auth_request, CURLOPT_SSL_VERIFYPEER, 0);
 curl_setopt($auth_request, CURLOPT_HTTPHEADER, array(
-    "Content-Type: application/json"
+    "Content-Type: application/json",
+    
 ));
 
 //convert arguments to json

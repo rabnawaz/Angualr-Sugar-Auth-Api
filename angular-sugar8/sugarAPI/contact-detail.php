@@ -9,11 +9,11 @@ $contact_id = $_POST['contact_id'];
 
 //echo $formdataObj;
 
-$instance_url = 'https://staging.rtlabs.co.uk:44367/rest/v11_1';
+$instance_url = 'https://westeros.rolustech.com:44332/rest/v10';
 /* Authentication End*/
 
 
-$filter_url = $instance_url . "/Contacts/{$contact_id}";
+$filter_url = $instance_url . "/Reports/{$contact_id}";
 
 $filter_arguments = array(
     "offset" => 0,

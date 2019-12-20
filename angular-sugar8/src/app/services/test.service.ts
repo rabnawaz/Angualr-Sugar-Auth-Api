@@ -47,6 +47,8 @@ export class TestService implements OnInit{
     public url: string;
     public callType: string;
 
+    public accessToken;
+    
     
     ngOnInit(){
 
@@ -61,7 +63,7 @@ export class TestService implements OnInit{
     
     getSugarApiAuth(userName: string, password: string){
         //Login user/password post request
-
+        
         let userParam_obj = new FormData();
         userParam_obj.append('username' , userName);
         userParam_obj.append('password' , password);

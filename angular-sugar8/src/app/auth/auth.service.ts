@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { User } from './user';
@@ -6,10 +6,15 @@ import { User } from './user';
 import {TestService} from '../services/test.service'
 
 @Injectable()
-export class AuthService {
+export class AuthService implements OnInit{
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  ngOnInit(){
+    //console.log("loggedIn: " , this.loggedIn);
+  }
+
   get isLoggedIn() {
+    //console.log(this.loggedIn.asObservable());
     return this.loggedIn.asObservable();
   }
 
@@ -20,17 +25,13 @@ export class AuthService {
 
   
   login(user: User) {
-    if (user.userName == 'admin2' && user.password == '@dmin111') {
+    if (user.userName !=='' && user.password !== '') {
       
       this.testService.getSugarApiAuth(user.userName, user.password);
-      //debugger;
-    if(localStorage.access_token){
-      this.loggedIn.next(true);
-      this.router.navigate(['/']);
+      if(localStorage.access_token !=undefined){
+        this.loggedIn.next(true);
+        this.router.navigate(['/']);
      }
-      else {
-      console.log('auth token was not found');
-      }
     }
   }
   
@@ -38,5 +39,7 @@ export class AuthService {
   logout() {
     this.loggedIn.next(false);
     this.router.navigate(['/login']);
+    localStorage.removeItem('access_token');
+
   }
 }
